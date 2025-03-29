@@ -1,4 +1,11 @@
 {
   "name": "APP",
-  "slug": "APP"
+  "slug": "APP",
+  "newArchEnabled": true,
+  "android": {
+    "package": "com.anonymous.APP"
+  },
+  "ios": {
+    "bundleIdentifier": "com.anonymous.APP"
+  }
 }
