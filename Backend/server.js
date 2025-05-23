@@ -1,27 +1,38 @@
-import express from "express";
+```typescript
+import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import connectDB from "./Database/ConnectDB.js";
-import encodeRouter from './Routes/encrypt.js'
-import examRouter from './Routes/Exams.routes.js'
-import userRouter from './Routes/users.js'
-import studentRouter from './Routes/Student.routes.js'
-const app = express();
+import encodeRouter from './Routes/encrypt.js';
+import examRouter from './Routes/Exams.routes.js';
+import userRouter from './Routes/users.js';
+import studentRouter from './Routes/Student.routes.js';
 
+// Load environment variables from .env file
 dotenv.config();
 
-const PORT = process.env.PORT || 5000;
+const app: Express = express();
+const port: string | number = process.env.PORT || 5000; // Use a more descriptive variable name and type
 
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
-app.get("/", (req, res) => {
-	res.send("Hello World!");
-});
-app.use('/exam', examRouter)
-app.use('/user', userRouter)
-app.use('/student', studentRouter)
-app.use('/encode', encodeRouter)
+// Middleware to parse JSON request bodies
+app.use(express.json());
 
-app.listen(PORT, () => {
-	console.log(`Server is running on port ${PORT}`);
-    connectDB();
+// Middleware to parse URL-encoded request bodies
+app.use(express.urlencoded({ extended: true }));
+
+// Define a simple route for the root path
+app.get("/", (req: Request, res: Response) => {
+    res.send("Hello World!");
 });
+
+// Mount the routers for different resources
+app.use('/exams', examRouter); // Use plural for route names
+app.use('/users', userRouter); // Use plural for route names
+app.use('/students', studentRouter); // Use plural for route names
+app.use('/encode', encodeRouter);
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+    connectDB(); // Connect to the database when the server starts
+});
+```
