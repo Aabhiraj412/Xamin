@@ -11,7 +11,7 @@ import studentRouter from './Routes/Student.routes.js';
 dotenv.config();
 
 const app: Express = express();
-const port: string | number = process.env.PORT || 5000; // Use a more descriptive variable name and type
+const port: number = Number(process.env.PORT) || 5000; // Use a more descriptive variable name and type, also convert to Number
 
 // Middleware to parse JSON request bodies
 app.use(express.json());
